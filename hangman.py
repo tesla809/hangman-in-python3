@@ -1,7 +1,7 @@
 # re-factor:
 # re-factor extract random word choice code
 # re-factor code to extract case correction code outside word update
-# draw hangman function
+# re-factor draw hangman function
 """
 Hangman in Python (beta)
 by Anthony Albertorio
@@ -120,9 +120,6 @@ def game(word_list):
     letters_inputed_list = []
     output_word = space_maker(hidden_word)
 
-    # output initial word hint
-    print('{0} letters: {1}'.format(len(hidden_word), output_word))
-
     while guess_count > 0:
         # reveals word to test
         # print(random_word)
@@ -133,6 +130,8 @@ def game(word_list):
 
         # draw
         hangman_draw(countdown)
+        # output initial word hint
+        print('{0} letters: {1}'.format(len(hidden_word), output_word))
         # get input
         user_guess = input('Guess a letter: ')
         if user_guess not in letters_inputed_list:
