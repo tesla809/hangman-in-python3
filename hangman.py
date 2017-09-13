@@ -59,13 +59,6 @@ def hangman_draw(count):
                right_leg_1, right_leg_2))
 
 
-def get_random_word(word_list):
-    # get random word index. -1 because randint is inclusive of end value
-    random_word_index = random.randint(0, len(word_list) - 1)
-    random_word = word_list[random_word_index].lower()
-    return random_word
-
-
 def duplicates(lst, item):
     return [i for i, x in enumerate(lst) if x == item]
 
@@ -119,7 +112,8 @@ def word_update(hidden_word, random_word, guess_letter):
 
 
 def game(word_list):
-    random_word = get_random_word(word_list)
+    # choice gets random element from iterable
+    random_word = random.choice(word_list)
     guess_count = 6
     countdown = 0
     hidden_word = '_' * len(random_word)
@@ -159,4 +153,3 @@ def game(word_list):
 
 
 game(words)
-
