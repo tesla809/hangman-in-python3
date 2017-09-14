@@ -11,7 +11,6 @@ import sys
 import os
 import random
 
-
 def get_words():
     with open('words.txt') as words_file:
         words = words_file.read()
@@ -98,7 +97,6 @@ def welcome():
     else:
         return True
 
-
 def word_update(hidden_word, random_word, guess_letter):
     # checks if letters
     if guess_letter.isalpha():
@@ -153,11 +151,8 @@ def game(word_list):
         # reveals word to test
         # print(random_word)
         # check if done
-        if countdown == 6:
-            print('You lost. The word was: {0}'.format(random_word))
-
         if '_' not in hidden_word:
-            print('All done!')
+            print('You won!')
             break
 
         # draw
@@ -181,10 +176,15 @@ def game(word_list):
                 print('You have {0} guesses'.format(guess_count))
         else:
             print('You guessed that letter. Try again.')
-
+    else:
+        print('You lost.')
+        print('The word was {0}'.format(random_word))
 
 while True:
     words = get_words()
-    clear()
-    welcome()
-    game(words)
+    new_game = welcome()
+    if new_game:
+        clear()
+        game(words)
+    else:
+        sys.exit()
