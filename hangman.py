@@ -7,9 +7,12 @@ Hangman in Python (beta)
 by Anthony Albertorio
 9/11/17
 """
+import sys
+import os
 import random
 
-words = ['Hello', 'world', 'United', 'America', 'Korea', 'cars', 'jazz']
+words = ['America']
+         #'Hello', 'world', 'United', 'Korea', 'cars', 'jazz']
 
 
 def hangman_draw(count):
@@ -68,6 +71,24 @@ def space_maker(word):
     word_space = ['{0} '.format(elem) for elem in word]
     return ''.join(word_space)
 
+# clears screen
+def clear():
+    # for windows
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        # for mac/linux
+        os.system('clear')
+
+
+def welcome():
+    start = input('Press enter/return to start or Q to quit: ').lower()
+    if start == 'q':
+        print('Bye!')
+        sys.exit()
+    else:
+        return True
+
 
 def word_update(hidden_word, random_word, guess_letter):
     # checks if letters
@@ -90,7 +111,6 @@ def word_update(hidden_word, random_word, guess_letter):
         # replace letter
         if len(matched_values) != 0:
             for letters in matched_values:
-                # probelm is here
                 hidden_word_list[letters] = guess_letter
             # place back letter case
             for upper_case in upper_case_list:
@@ -124,6 +144,9 @@ def game(word_list):
         # reveals word to test
         # print(random_word)
         # check if done
+        if countdown == 6:
+            print('You lost. The word was: {0}'.format(random_word))
+
         if '_' not in hidden_word:
             print('All done!')
             break
@@ -151,4 +174,7 @@ def game(word_list):
             print('You guessed that letter. Try again.')
 
 
-game(words)
+while True:
+    clear()
+    welcome()
+    game(words)
