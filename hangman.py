@@ -11,17 +11,28 @@ import sys
 import os
 import random
 
+
 def get_words():
-    with open('words.txt') as words_file:
-        words = words_file.read()
-
-    words = words.split()
-
-    if len(words) == 0:
-        words = ['America', 'Korea', 'jazz', 'apple',
+    words_backup = ['America', 'Korea', 'jazz', 'apple',
                  'Honda', 'Japan', 'melon',
                  'lemon', 'cake', 'jesus', 'superman']
-    return words
+    try:
+        input_file = sys.argv[1]
+        with open(input_file) as words_file:
+            words = words_file.read()
+
+        words = words.split()
+
+    except IndexError:
+        words = words_backup
+    except FileNotFoundError or UnboundLocalError:
+        print('>>>>>>> File Not found\n\n')
+        sys.exit()
+    finally:
+        if len(words) == 0:
+            words = words_backup
+
+        return words
 
 def hangman_draw(count):
     head = '            |'
