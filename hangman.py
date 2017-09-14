@@ -11,9 +11,18 @@ import sys
 import os
 import random
 
-words = ['America']
-         #'Hello', 'world', 'United', 'Korea', 'cars', 'jazz']
 
+def get_words():
+    with open('words.txt') as words_file:
+        words = words_file.read()
+
+    words = words.split()
+
+    if len(words) == 0:
+        words = ['America', 'Korea', 'jazz', 'apple',
+                 'Honda', 'Japan', 'melon',
+                 'lemon', 'cake', 'jesus', 'superman']
+    return words
 
 def hangman_draw(count):
     head = '            |'
@@ -46,7 +55,7 @@ def hangman_draw(count):
         right_leg_2 = '  \\         |'
 
     print("""
-         ____________ 
+         ____________
         |           |
         {0}
      {2}{1}{3}
@@ -175,6 +184,7 @@ def game(word_list):
 
 
 while True:
+    words = get_words()
     clear()
     welcome()
     game(words)
